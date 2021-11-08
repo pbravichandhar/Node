@@ -11,6 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 // Initialize DB
 require('./initDB')();
 
+
 const ProductRoute = require('./Routes/Product.route');
 app.use('/products', ProductRoute);
 

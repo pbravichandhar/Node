@@ -4,20 +4,20 @@ const mongoose = require('mongoose');
 const Product = require('../Models/Product.model');
 const baseError = require('../utils/baseError');
 const { getAllProductsService } = require('../Services/Product.Service');
-const { handleServiceError } = require('../utils/errorHandler');
+let { handleErrorAsync } = require('../utils/errorHandler');
+
 
 module.exports = {
-  getAllProducts: async (req, res, next) => {
-        const results = await Product.find({}, { __v: 0 });
+  getAllProducts: handleErrorAsync(async (req, res, next) => {
+    const results = await Product.find({}, { __v: 0 });
         // Throwing Error Case 1 - From controller
-        throw new baseError('No User', 200, 'Throwing from controller without try catch block', true)
+        throw new baseError('No User', 400, 'Throwing from controller without try catch block', false)
   
         // Throwing Error Case 2 - From service
         // await getAllProductsService();
         
-        res.send(results);
-
-  },
+    res.send(results);
+  }),
 
   createNewProduct: async (req, res, next) => {
     try {

@@ -6,7 +6,10 @@ const { handleErrorAsync } = require('../utils/errorHandler');
 
 //Get a list of all products
 
-router.get('/', handleErrorAsync(async (req, res, next) => { await ProductController.getAllProducts(req, res, next); }));
+// Un comment below is other way of handling
+// router.get('/', handleErrorAsync(async (req, res, next) => { await ProductController.getAllProducts(req, res, next); }));
+
+router.get('/', ProductController.getAllProducts);
 
 //Create a new product
 router.post('/', ProductController.createNewProduct);
